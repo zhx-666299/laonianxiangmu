@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="za">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="用药提醒">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#FFF5E6">
+    <meta name="description" content="老年人用药管理与就诊记录助手，支持壮语/中文双语语音播报">
+    <title>用药提醒 · 老年健康助手</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIueUqOiNr+aPkOmGkuOAgOiAgeW5tOWBpeW6tyIsCiAgInNob3J0X25hbWUiOiAi55So6I2v5o+Q6YaSIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGRkY1RTYiLAogICJ0aGVtZV9jb2xvciI6ICIjRkY5RjQ0IiwKICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLAogICJsYW5nIjogInphIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhodGJHNXpPbmhzYVc1clBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5OHlNREF3TDNocmFXNW5JaUJrYVhOd2JHRjVQU0l3SURBZ01UQWdNVEFpSUhodGJHNXpPbk4wWVhSMWNtVTlJbWgwZEhBNkx5OTNkM2N1ZHpNdWIzSm5Mekl3TURBdmMzUmhkSFZ5WlNJZ2FHVnBaMmgwUFNJeU1EQXdJaUJtYVd4c1BTSWlMejQ4UEM5eVp6cDJaejQ9IiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGh0Ykc1ek9uaHNhVzVyUFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk4eU1EQXdMM2hyYVc1bklpQmthWE53YkdGNVBTSXdJREFnTVRRZ01UUWlJSGh0Ykc1ek9uTjBZWFIxY21VOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNSaGRIVnlaU0lnYUdWcFoyaDBQU0l5TURBd0lpQm1hV3hzUFNJaUx6NDhQQzl5WnpwMlp6ND0iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkiCiAgICB9CiAgXQp9">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💊</text></svg>">
+
+    <style>
+        :root {
+            --bg: #FFF5E6;
+            --bg-card: #FFFFFF;
+            --bg-warm: #FFF8ED;
+            --text: #2D2D2D;
+            --text-secondary: #4A4A4A;
+            --text-light: #666666;
+            --accent: #E8783B;
+            --accent-light: #FF9F6B;
+            --accent-dark: #C45D28;
+            --success: #4CAF50;
+            --success-light: #E8F5E9;
+            --danger: #D32F2F;
+            --danger-light: #FFEBEE;
+            --warning: #F9A825;
+            --warning-light: #FFF8E1;
+            --border: #E0D5C5;
+            --border-light: #F0E8D8;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font-xl: 26px;
+            --font-lg: 22px;
+            --font-md: 19px;
+            --font-sm: 16px;
+            --font-xs: 14px;
+            --btn-min-h: 50px;
+            --btn-min-w: 50px;
+            --nav-height: 72px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+            --transition: 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html,
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: var(--font-md);
+            line-height: 1.6;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: 0.02em;
+        }
+
+        body {
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 16px);
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 顶部状态栏占位 */
+        .status-bar-spacer {
+            height: env(safe-area-inset-top, 20px);
+            min-height: 20px;
+            background: var(--bg-warm);
+        }
+
+        /* 页面容器 */
+        .page {
+            display: none;
+            padding: 16px 16px 8px;
+            animation: fadeIn 0.25s ease;
+        }
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 页面标题栏 */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 4px 16px;
+            gap: 12px;
+        }
+        .page-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+        }
+        .btn-add {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 28px;
+            padding: 12px 20px;
+            font-size: var(--font-md);
+            font-weight: 600;
+            cursor: pointer;
+            min-height: var(--btn-min-h);
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(232, 120, 59, 0.3);
+            transition: all var(--transition);
+            letter-spacing: 0.03em;
+        }
+        .btn-add:active {
+            transform: scale(0.95);
+            opacity: 0.85;
+            box-shadow: 0 1px 4px rgba(232, 120, 59, 0.2);
+        }
+        .btn-add svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 18px 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            transition: all var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .card:active {
+            transform: scale(0.98);
+            box-shadow: var(--shadow-lg);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .card-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            word-break: break-word;
+        }
+        .card-subtitle {
+            font-size: var(--font-md);
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .card-meta {
+            font-size: var(--font-sm);
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* 药品卡片 */
+        .med-card {
+            border-left: 5px solid var(--accent);
+            padding-left: 14px;
+        }
+        .med-card.taken {
+            border-left-color: var(--success);
+            background: var(--success-light);
+        }
+        .med-card.missed {
+            border-left-color: var(--danger);
+            background: var(--danger-light);
+        }
+        .med-card .time-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .time-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--bg-warm);
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: var(--font-sm);
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .time-tag.done {
+            background: var(--success-light);
+            border-color: var(--success);
+            color: #2E7D32;
+        }
+        .time-tag.current {
+            background: var(--warning-light);
+            border-color: var(--warning);
+            color: #E65100;
+            animation: pulse-tag 2s infinite;
+        }
+        @keyframes pulse-tag {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(249, 168, 37, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(249, 168, 37, 0);
+            }
+        }
+        .time-tag.overdue {
+            background: var(--danger-light);
+            border-color: var(--danger);
+            color: #B71C1C;
+        }
+
+        /* 按钮 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: none;
+            border-radius: 24px;
+            padding: 12px 22px;
+            font-size: var(--font-md);
+            font-weight: 600;
+            cursor: pointer;
+            min-height: var(--btn-min-h);
+            min-width: var(--btn-min-w);
+            transition: all var(--transition);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        .btn:active {
+            transform: scale(0.94);
+            opacity: 0.8;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(232, 120, 59, 0.25);
+        }
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(76, 175, 80, 0.25);
+        }
+        .btn-outline {
+            background: #fff;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        .btn-danger {
+            background: #fff;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1.5px solid var(--border);
+        }
+        .btn-lg {
+            padding: 16px 28px;
+            font-size: var(--font-lg);
+            border-radius: 28px;
+            min-height: 56px;
+        }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: var(--font-sm);
+            min-height: 40px;
+            border-radius: 20px;
+        }
+        .btn-full {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* 统计栏 */
+        .stats-bar {
+            position: sticky;
+            bottom: calc(var(--nav-height) + var(--safe-bottom) + 8px);
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 0 16px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 40;
+            gap: 8px;
+        }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--accent);
+        }
+        .stat-number.success {
+            color: var(--success);
+        }
+        .stat-number.danger {
+            color: var(--danger);
+        }
+        .stat-label {
+            font-size: var(--font-sm);
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: var(--nav-height);
+            padding-bottom: var(--safe-bottom);
+            z-index: 50;
+            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all var(--transition);
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: var(--font-xs);
+            font-weight: 500;
+            min-width: 70px;
+            letter-spacing: 0.03em;
+        }
+        .nav-item.active {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .nav-item:active {
+            background: var(--bg-warm);
+            transform: scale(0.92);
+        }
+        .nav-icon {
+            font-size: 26px;
+            line-height: 1;
+            transition: all var(--transition);
+        }
+        .nav-item.active .nav-icon {
+            transform: scale(1.15);
+        }
+
+        /* 模态框 */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 60;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            animation: fadeInOverlay 0.3s ease;
+        }
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .modal-sheet {
+            background: #fff;
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 480px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 20px 18px calc(20px + var(--safe-bottom));
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        .modal-sheet h3 {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+            color: var(--text);
+        }
+        .modal-sheet .form-group {
+            margin-bottom: 16px;
+        }
+        .modal-sheet label {
+            display: block;
+            font-size: var(--font-md);
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .modal-sheet input,
+        .modal-sheet select,
+        .modal-sheet textarea {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: var(--font-md);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-warm);
+            color: var(--text);
+            transition: border-color var(--transition);
+            -webkit-appearance: none;
+            appearance: none;
+            font-family: inherit;
+            letter-spacing: 0.03em;
+        }
+        .modal-sheet input:focus,
+        .modal-sheet select:focus,
+        .modal-sheet textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(232, 120, 59, 0.1);
+        }
+        .modal-sheet textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .modal-actions .btn {
+            flex: 1;
+            min-width: 100px;
+        }
+        .modal-close {
+            position: sticky;
+            top: 0;
+            float: right;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+        .modal-close:active {
+            background: #e0e0e0;
+        }
+
+        /* 语音按钮 */
+        .voice-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            transition: all var(--transition);
+            flex-shrink: 0;
+        }
+        .voice-btn:active {
+            transform: scale(0.85);
+            background: var(--accent);
+        }
+        .voice-btn.listening {
+            animation: pulse-voice 1s infinite;
+            background: var(--danger);
+            color: #fff;
+        }
+        @keyframes pulse-voice {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 0 16px rgba(211, 47, 47, 0);
+            }
+        }
+        .input-with-voice {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .input-with-voice input {
+            flex: 1;
+        }
+
+        /* 多选时段 */
+        .time-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .time-chip {
+            padding: 10px 18px;
+            border-radius: 22px;
+            border: 2px solid var(--border);
+            background: #fff;
+            cursor: pointer;
+            font-size: var(--font-md);
+            font-weight: 500;
+            transition: all var(--transition);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+        }
+        .time-chip.selected {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+        .time-chip:active {
+            transform: scale(0.93);
+        }
+
+        /* 就诊卡片 */
+        .visit-card {
+            border-left: 5px solid #5C6BC0;
+            padding-left: 14px;
+        }
+        .visit-card .follow-up-badge {
+            display: inline-block;
+            background: #E8EAF6;
+            color: #3949AB;
+            border-radius: 14px;
+            padding: 4px 12px;
+            font-size: var(--font-xs);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* 我的页面 */
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--accent-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            margin: 0 auto 8px;
+            color: #fff;
+            font-weight: 700;
+        }
+        .user-info-card {
+            text-align: center;
+            padding: 20px;
+        }
+        .user-name {
+            font-size: var(--font-xl);
+            font-weight: 700;
+        }
+        .settings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+            background: #fff;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            min-height: 56px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            gap: 12px;
+            transition: all var(--transition);
+        }
+        .settings-item:active {
+            transform: scale(0.97);
+            background: #fafafa;
+        }
+        .settings-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .settings-text {
+            flex: 1;
+            font-size: var(--font-md);
+            font-weight: 500;
+            color: var(--text);
+        }
+        .settings-value {
+            font-size: var(--font-sm);
+            color: var(--text-light);
+        }
+
+        /* 滑动条 */
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+        .slider-row input[type="range"] {
+            flex: 1;
+            height: 40px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--border-light);
+            border-radius: 20px;
+            outline: none;
+        }
+        .slider-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        .slider-label {
+            font-size: var(--font-sm);
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* 筛选标签 */
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            padding: 8px 16px;
+            border-radius: 18px;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            cursor: pointer;
+            font-size: var(--font-sm);
+            font-weight: 500;
+            transition: all var(--transition);
+            color: var(--text-secondary);
+        }
+        .filter-chip.active {
+            background: #5C6BC0;
+            color: #fff;
+            border-color: #5C6BC0;
+            font-weight: 600;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 28px;
+            font-size: var(--font-md);
+            z-index: 80;
+            pointer-events: none;
+            animation: toastIn 0.4s ease, toastOut 0.4s ease 2.5s forwards;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        .empty-state .empty-icon {
+            font-size: 60px;
+            margin-bottom: 12px;
+        }
+        .empty-state p {
+            font-size: var(--font-md);
+        }
+
+        /* 响应式 */
+        @media (max-width: 360px) {
+            :root {
+                --font-xl: 23px;
+                --font-lg: 20px;
+                --font-md: 17px;
+                --font-sm: 15px;
+                --btn-min-h: 46px;
+            }
+            .btn-add {
+                padding: 10px 16px;
+                font-size: var(--font-sm);
+            }
+            .stat-number {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 状态栏占位 -->
+    <div class="status-bar-spacer"></div>
+
+    <!-- ========== 页面1：用药管理 ========== -->
+    <div class="page active" id="page-medication">
+        <div class="page-header">
+            <span class="page-title" data-i18n="medication_title">💊 用药提醒</span>
+            <button class="btn-add" onclick="openAddMedication()" aria-label="添加药品">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                <span data-i18n="add_medication">添加药品</span>
+            </button>
+        </div>
+        <div id="medication-list">
+            <!-- 药品卡片动态生成 -->
+        </div>
+        <div class="empty-state" id="med-empty" style="display:none;">
+            <div class="empty-icon">💊</div>
+            <p data-i18n="no_medication">还没有添加药品，点击上方按钮添加吧</p>
+        </div>
+        <!-- 统计栏 -->
+        <div class="stats-bar" id="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number success" id="stat-taken">0</div>
+                <div class="stat-label" data-i18n="taken_today">今日已服</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number danger" id="stat-missed">0</div>
+                <div class="stat-label" data-i18n="missed_today">今日漏服</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat-total">0</div>
+                <div class="stat-label" data-i18n="total_today">今日应服</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 页面2：就诊记录 ========== -->
+    <div class="page" id="page-visits">
+        <div class="page-header">
+            <span class="page-title" data-i18n="visits_title">📋 就诊记录</span>
+            <button class="btn-add" onclick="openAddVisit()" aria-label="添加记录">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                <span data-i18n="add_visit">添加记录</span>
+            </button>
+        </div>
+        <div class="filter-chips" id="visit-filter">
+            <span class="filter-chip active" data-filter="all" data-i18n="filter_all">全部</span>
+            <span class="filter-chip" data-filter="1month" data-i18n="filter_1month">近1个月</span>
+            <span class="filter-chip" data-filter="3months" data-i18n="filter_3months">近3个月</span>
+        </div>
+        <div id="visit-list">
+            <!-- 就诊卡片动态生成 -->
+        </div>
+        <div class="empty-state" id="visit-empty" style="display:none;">
+            <div class="empty-icon">📋</div>
+            <p data-i18n="no_visit">还没有就诊记录，点击上方按钮添加吧</p>
+        </div>
+    </div>
+
+    <!-- ========== 页面3：我的 ========== -->
+    <div class="page" id="page-profile">
+        <div class="user-info-card card">
+            <div class="avatar-circle" id="avatar-display">👵</div>
+            <div class="user-name" id="profile-name">李阿婆</div>
+            <div class="card-meta" id="profile-info">78岁 · 📞 138****6789</div>
+        </div>
+        <div class="settings-list">
+            <div class="settings-item" onclick="openEditProfile()">
+                <span class="settings-icon">👤</span>
+                <span class="settings-text" data-i18n="edit_profile">编辑个人信息</span>
+                <span class="settings-value">›</span>
+            </div>
+            <div class="settings-item" id="lang-switch-row">
+                <span class="settings-icon">🌐</span>
+                <span class="settings-text" data-i18n="language_setting">语言设置</span>
+                <button class="btn btn-sm btn-outline" id="btn-lang-switch" onclick="toggleLanguage()">壮语</button>
+            </div>
+            <div class="settings-item" style="flex-direction: column; align-items: stretch; cursor: default;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                    <span class="settings-icon">🔊</span>
+                    <span class="settings-text" data-i18n="volume_setting">语音音量</span>
+                    <span class="settings-value" id="vol-label">80%</span>
+                </div>
+                <div class="slider-row">
+                    <span style="font-size:18px;">🔈</span>
+                    <input type="range" min="10" max="100" value="80" id="volume-slider" oninput="updateVolume(this.value)">
+                    <span style="font-size:18px;">🔊</span>
+                </div>
+            </div>
+            <div class="settings-item" style="flex-direction: column; align-items: stretch; cursor: default;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                    <span class="settings-icon">⏱️</span>
+                    <span class="settings-text" data-i18n="speed_setting">播报语速</span>
+                    <span class="settings-value" id="speed-label">慢速</span>
+                </div>
+                <div class="slider-row">
+                    <span style="font-size:14px;">慢</span>
+                    <input type="range" min="40" max="100" value="65" id="speed-slider" oninput="updateSpeed(this.value)">
+                    <span style="font-size:14px;">快</span>
+                </div>
+            </div>
+            <div class="settings-item" onclick="callEmergency()">
+                <span class="settings-icon">🆘</span>
+                <span class="settings-text" data-i18n="call_emergency">联系子女/志愿者</span>
+                <span class="settings-value" style="color:var(--danger);font-weight:600;">📞</span>
+            </div>
+            <div class="settings-item" onclick="showHelp()">
+                <span class="settings-icon">❓</span>
+                <span class="settings-text" data-i18n="help_feedback">帮助与反馈</span>
+                <span class="settings-value">›</span>
+            </div>
+        </div>
+        <div style="text-align:center;padding:20px;color:var(--text-light);font-size:var(--font-xs);">
+            <span data-i18n="version">版本 1.0 · 老年健康助手</span>
+        </div>
+    </div>
+
+    <!-- ========== 底部导航 ========== -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-page="page-medication" onclick="switchPage('page-medication')">
+            <span class="nav-icon">💊</span>
+            <span data-i18n="nav_medication">用药提醒</span>
+        </button>
+        <button class="nav-item" data-page="page-visits" onclick="switchPage('page-visits')">
+            <span class="nav-icon">📋</span>
+            <span data-i18n="nav_visits">就诊记录</span>
+        </button>
+        <button class="nav-item" data-page="page-profile" onclick="switchPage('page-profile')">
+            <span class="nav-icon">👤</span>
+            <span data-i18n="nav_profile">我的</span>
+        </button>
+    </nav>
+
+    <!-- ========== 模态框容器 ========== -->
+    <div id="modal-container"></div>
+
+    <!-- Toast容器 -->
+    <div id="toast-container"></div>
+
+    <script>
+        // ==================== 应用核心 ====================
+        const APP_KEY = 'elderly_health_app_data_v2';
+
+        // 默认数据
+        const defaultData = {
+            user: {
+                name: '李阿婆',
+                age: 78,
+                phone: '138****6789',
+                emergencyContact: '139****1234',
+                avatar: '👵',
+                language: 'za', // 'za'=壮语, 'zh'=中文
+                volume: 80,
+                speed: 65 // 0-100映射到0.4-1.0
+            },
+            medications: [
+                {
+                    id: 'med_001',
+                    name: '氨氯地平片',
+                    nameZa: '氨氯地平片(降压药)',
+                    dosage: '1片',
+                    times: ['早'],
+                    instruction: '饭后',
+                    durationDays: 90,
+                    startDate: '2026-05-01',
+                    records: {}
+                },
+                {
+                    id: 'med_002',
+                    name: '二甲双胍',
+                    nameZa: '二甲双胍(降糖药)',
+                    dosage: '2粒',
+                    times: ['早', '晚'],
+                    instruction: '随餐',
+                    durationDays: 60,
+                    startDate: '2026-05-10',
+                    records: {}
+                },
+                {
+                    id: 'med_003',
+                    name: '阿司匹林',
+                    nameZa: '阿司匹林(防血栓)',
+                    dosage: '1片',
+                    times: ['中'],
+                    instruction: '饭后',
+                    durationDays: 30,
+                    startDate: '2026-05-12',
+                    records: {}
+                }
+            ],
+            visits: [
+                {
+                    id: 'vis_001',
+                    date: '2026-05-10',
+                    hospital: '广西壮族自治区人民医院',
+                    department: '心内科',
+                    doctor: '黄医生',
+                    diagnosis: '高血压2级，需持续服药控制',
+                    prescription: '氨氯地平片 每日1片',
+                    followUpDate: '2026-06-10',
+                    photos: []
+                },
+                {
+                    id: 'vis_002',
+                    date: '2026-04-15',
+                    hospital: '南宁市第一人民医院',
+                    department: '内分泌科',
+                    doctor: '韦医生',
+                    diagnosis: '2型糖尿病，血糖控制尚可',
+                    prescription: '二甲双胍 每日2次，每次2粒',
+                    followUpDate: '2026-07-15',
+                    photos: []
+                }
+            ]
+        };
+
+        let appData = loadData();
+
+        function loadData() {
+            try {
+                const saved = localStorage.getItem(APP_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    // 合并默认数据，确保新字段存在
+                    return deepMerge(defaultData, parsed);
+                }
+            } catch (e) {
+                console.warn('数据加载失败，使用默认数据', e);
+            }
+            return JSON.parse(JSON.stringify(defaultData));
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem(APP_KEY, JSON.stringify(appData));
+            } catch (e) {
+                showToast('存储空间不足，请清理旧记录');
+                console.error('保存失败', e);
+            }
+        }
+
+        function deepMerge(target, source) {
+            const result = JSON.parse(JSON.stringify(target));
+            for (const key in source) {
+                if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+                    result[key] = deepMerge(result[key] || {}, source[key]);
+                } else {
+                    result[key] = source[key];
+                }
+            }
+            return result;
+        }
+
+        // ==================== 国际化文本 ====================
+        const i18nTexts = {
+            za: {
+                medication_title: '💊 用药提醒',
+                add_medication: '添加药品',
+                no_medication: '还没有添加药品，点击上方按钮添加吧',
+                taken_today: '今日已服',
+                missed_today: '今日漏服',
+                total_today: '今日应服',
+                visits_title: '📋 就诊记录',
+                add_visit: '添加记录',
+                no_visit: '还没有就诊记录，点击上方按钮添加吧',
+                filter_all: '全部',
+                filter_1month: '近1个月',
+                filter_3months: '近3个月',
+                nav_medication: '用药提醒',
+                nav_visits: '就诊记录',
+                nav_profile: '我的',
+                edit_profile: '编辑个人信息',
+                language_setting: '语言设置',
+                volume_setting: '语音音量',
+                speed_setting: '播报语速',
+                call_emergency: '联系子女/志愿者',
+                help_feedback: '帮助与反馈',
+                version: '版本 1.0 · 老年健康助手',
+                save: '保存',
+                cancel: '取消',
+                delete: '删除',
+                confirm: '确认',
+                medication_name: '药品名称',
+                dosage: '剂量',
+                take_time: '服用时间',
+                morning: '早',
+                noon: '中',
+                evening: '晚',
+                bedtime: '睡前',
+                instruction: '服用说明',
+                before_meal: '饭前',
+                after_meal: '饭后',
+                with_meal: '随餐',
+                duration_days: '疗程天数',
+                days_unit: '天',
+                voice_input: '语音录入',
+                listening: '正在聆听...',
+                take_photo: '拍照/上传',
+                visit_date: '就诊日期',
+                hospital: '医院名称',
+                department: '科室',
+                doctor_name: '医生姓名',
+                diagnosis: '诊断结果',
+                prescription_meds: '处方药品',
+                follow_up_date: '复诊提醒日期',
+                follow_up_badge: '复诊: ',
+                mark_taken: '已服药',
+                mark_missed: '漏服',
+                voice_confirm_add: '阿婆，已为您添加{name}，每天{times}服用{dosage}，{instruction}哦',
+                voice_reminder: '阿婆，该吃{name}了，{dosage}，{instruction}',
+                voice_missed: '阿婆，您错过了{name}的服药时间，请尽快补服',
+                voice_followup: '阿婆，后天要去医院复诊啦，请做好准备',
+                toast_saved: '✅ 保存成功',
+                toast_deleted: '已删除',
+                toast_reminder_set: '提醒已设置',
+                call_confirm: '确定要拨打紧急联系电话吗？',
+                help_text: '常见问题：\n1. 如何添加药品 - 点击"添加药品"按钮\n2. 如何修改提醒 - 点击药品卡片编辑\n3. 语音录入 - 点击麦克风按钮说话',
+            },
+            zh: {
+                medication_title: '💊 用药提醒',
+                add_medication: '添加药品',
+                no_medication: '还没有添加药品，点击上方按钮添加吧',
+                taken_today: '今日已服',
+                missed_today: '今日漏服',
+                total_today: '今日应服',
+                visits_title: '📋 就诊记录',
+                add_visit: '添加记录',
+                no_visit: '还没有就诊记录，点击上方按钮添加吧',
+                filter_all: '全部',
+                filter_1month: '近1个月',
+                filter_3months: '近3个月',
+                nav_medication: '用药提醒',
+                nav_visits: '就诊记录',
+                nav_profile: '我的',
+                edit_profile: '编辑个人信息',
+                language_setting: '语言设置',
+                volume_setting: '语音音量',
+                speed_setting: '播报语速',
+                call_emergency: '联系子女/志愿者',
+                help_feedback: '帮助与反馈',
+                version: '版本 1.0 · 老年健康助手',
+                save: '保存',
+                cancel: '取消',
+                delete: '删除',
+                confirm: '确认',
+                medication_name: '药品名称',
+                dosage: '剂量',
+                take_time: '服用时间',
+                morning: '早',
+                noon: '中',
+                evening: '晚',
+                bedtime: '睡前',
+                instruction: '服用说明',
+                before_meal: '饭前',
+                after_meal: '饭后',
+                with_meal: '随餐',
+                duration_days: '疗程天数',
+                days_unit: '天',
+                voice_input: '语音录入',
+                listening: '正在聆听...',
+                take_photo: '拍照/上传',
+                visit_date: '就诊日期',
+                hospital: '医院名称',
+                department: '科室',
+                doctor_name: '医生姓名',
+                diagnosis: '诊断结果',
+                prescription_meds: '处方药品',
+                follow_up_date: '复诊提醒日期',
+                follow_up_badge: '复诊: ',
+                mark_taken: '已服药',
+                mark_missed: '漏服',
+                voice_confirm_add: '阿婆，已为您添加{name}，每天{times}服用{dosage}，{instruction}哦',
+                voice_reminder: '阿婆，该吃{name}了，{dosage}，{instruction}',
+                voice_missed: '阿婆，您错过了{name}的服药时间，请尽快补服',
+                voice_followup: '阿婆，后天要去医院复诊啦，请做好准备',
+                toast_saved: '✅ 保存成功',
+                toast_deleted: '已删除',
+                toast_reminder_set: '提醒已设置',
+                call_confirm: '确定要拨打紧急联系电话吗？',
+                help_text: '常见问题：\n1. 如何添加药品 - 点击"添加药品"按钮\n2. 如何修改提醒 - 点击药品卡片编辑\n3. 语音录入 - 点击麦克风按钮说话',
+            }
+        };
+
+        function t(key) {
+            const lang = appData.user.language || 'za';
+            return i18nTexts[lang]?.[key] || i18nTexts['za'][key] || key;
+        }
+
+        function updateAllI18n() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.textContent = t(key);
+            });
+            // 更新语言按钮
+            const langBtn = document.getElementById('btn-lang-switch');
+            if (langBtn) {
+                langBtn.textContent = appData.user.language === 'za' ? '壮语' : '中文';
+            }
+            // 更新速度标签
+            updateSpeedLabel();
+            updateVolumeLabel();
+            // 刷新列表
+            renderMedications();
+            renderVisits();
+            updateStats();
+        }
+
+        // ==================== 页面切换 ====================
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const page = document.getElementById(pageId);
+            if (page) page.classList.add('active');
+            const navItem = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+            if (navItem) navItem.classList.add('active');
+            if (pageId === 'page-medication') {
+                updateStats();
+                renderMedications();
+            }
+            if (pageId === 'page-visits') renderVisits();
+            if (pageId === 'page-profile') updateProfileDisplay();
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==================== Toast ====================
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.parentNode.removeChild(toast);
+            }, 3000);
+        }
+
+        // ==================== 语音播报 ====================
+        function speak(text, repeatCount = 0) {
+            if (!('speechSynthesis' in window)) {
+                console.warn('浏览器不支持语音播报');
+                return;
+            }
+            // 取消之前的播报
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            const speedVal = (appData.user.speed || 65) / 100;
+            const rate = 0.4 + speedVal * 0.6; // 映射到0.4-1.0
+            utter.rate = rate;
+            utter.volume = (appData.user.volume || 80) / 100;
+            utter.pitch = 1.0;
+            // 尝试使用对应语言
+            const langCode = appData.user.language === 'za' ? 'zh-CN' : 'zh-CN';
+            utter.lang = langCode;
+            // 选择较慢的语音
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                const preferredVoice = voices.find(v => v.lang.includes('zh-CN') && v.name.includes('Female')) ||
+                    voices.find(v => v.lang.includes('zh-CN')) ||
+                    voices[0];
+                utter.voice = preferredVoice;
+            }
+            window.speechSynthesis.speak(utter);
+            // 重复播报
+            if (repeatCount > 0) {
+                setTimeout(() => {
+                    if (!window.speechSynthesis.speaking) {
+                        speak(text, repeatCount - 1);
+                    }
+                }, 5000);
+            }
+        }
+
+        function speakI18n(key, replacements = {}, repeatCount = 0) {
+            let text = t(key);
+            for (const [k, v] of Object.entries(replacements)) {
+                text = text.replace(`{${k}}`, v);
+            }
+            speak(text, repeatCount);
+        }
+
+        // 初始化语音列表
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+
+        // ==================== 语音录入 ====================
+        let recognition = null;
+        let currentVoiceInputCallback = null;
+
+        function initSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                return null;
+            }
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const rec = new SR();
+            rec.lang = appData.user.language === 'za' ? 'zh-CN' : 'zh-CN';
+            rec.interimResults = false;
+            rec.maxAlternatives = 1;
+            rec.continuous = false;
+            rec.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                if (currentVoiceInputCallback) {
+                    currentVoiceInputCallback(transcript);
+                    currentVoiceInputCallback = null;
+                }
+            };
+            rec.onerror = (event) => {
+                console.warn('语音识别错误:', event.error);
+                showToast('语音识别失败，请手动输入');
+                if (currentVoiceInputCallback) currentVoiceInputCallback = null;
+            };
+            rec.onend = () => {
+                document.querySelectorAll('.voice-btn.listening').forEach(b => b.classList.remove('listening'));
+            };
+            return rec;
+        }
+
+        function startVoiceInput(callback) {
+            if (!recognition) {
+                recognition = initSpeechRecognition();
+            }
+            if (!recognition) {
+                showToast('您的设备不支持语音录入');
+                return;
+            }
+            currentVoiceInputCallback = callback;
+            try {
+                recognition.start();
+                document.querySelectorAll('.voice-btn').forEach(b => b.classList.add('listening'));
+                showToast(t('listening'));
+            } catch (e) {
+                console.warn('语音识别启动失败', e);
+                showToast('请稍后再试');
+            }
+        }
+
+        // ==================== 用药管理 ====================
+        function getTimeSlots() {
+            return [
+                { key: '早', label: t('morning'), defaultHour: 8 },
+                { key: '中', label: t('noon'), defaultHour: 12 },
+                { key: '晚', label: t('evening'), defaultHour: 18 },
+                { key: '睡前', label: t('bedtime'), defaultHour: 21 },
+            ];
+        }
+
+        function getTodayStr() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+
+        function getCurrentHour() {
+            return new Date().getHours();
+        }
+
+        function getMedicationStatus(med) {
+            const today = getTodayStr();
+            const records = med.records[today] || {};
+            const currentHour = getCurrentHour();
+            const timeSlots = getTimeSlots();
+            const statuses = {};
+            for (const slot of timeSlots) {
+                if (!med.times.includes(slot.key)) {
+                    statuses[slot.key] = null; // 不适用
+                    continue;
+                }
+                if (records[slot.key] === true) {
+                    statuses[slot.key] = 'taken'; // 已服
+                } else if (records[slot.key] === 'missed') {
+                    statuses[slot.key] = 'missed'; // 漏服
+                } else if (currentHour >= slot.defaultHour + 2) {
+                    statuses[slot.key] = 'overdue'; // 已过期未服
+                } else if (currentHour >= slot.defaultHour - 1 && currentHour <= slot.defaultHour + 1) {
+                    statuses[slot.key] = 'current'; // 当前该服
+                } else {
+                    statuses[slot.key] = 'pending'; // 待服
+                }
+            }
+            return statuses;
+        }
+
+        function renderMedications() {
+            const list = document.getElementById('medication-list');
+            const empty = document.getElementById('med-empty');
+            const meds = appData.medications;
+            if (meds.length === 0) {
+                list.innerHTML = '';
+                empty.style.display = 'block';
+            } else {
+                empty.style.display = 'none';
+                list.innerHTML = meds.map(med => {
+                    const statuses = getMedicationStatus(med);
+                    const timeSlots = getTimeSlots();
+                    const timeTagsHtml = timeSlots
+                        .filter(slot => med.times.includes(slot.key))
+                        .map(slot => {
+                            const status = statuses[slot.key];
+                            let cls = '';
+                            let label = slot.label;
+                            if (status === 'taken') { cls = 'done';
+                                label += ' ✅'; } else if (status === 'current') { cls = 'current';
+                                label += ' 🔔'; } else if (status === 'overdue') { cls = 'overdue';
+                                label += ' ⚠️'; } else if (status === 'missed') { cls = 'overdue';
+                                label += ' ❌'; }
+                            return `<span class="time-tag ${cls}">${label}</span>`;
+                        }).join('');
+                    // 判断整体状态
+                    const allTaken = med.times.every(t => statuses[t] === 'taken');
+                    const hasOverdue = med.times.some(t => statuses[t] === 'overdue');
+                    let cardClass = 'card med-card';
+                    if (allTaken) cardClass += ' taken';
+                    else if (hasOverdue) cardClass += ' missed';
+                    return `
+                <div class="${cardClass}" onclick="openEditMedication('${med.id}')">
+                  <div class="card-header">
+                    <span class="card-title">${med.name}</span>
+                    <span style="font-size:var(--font-md);font-weight:600;color:var(--accent);white-space:nowrap;">${med.dosage}</span>
+                  </div>
+                  <div class="time-tags">${timeTagsHtml}</div>
+                  <div class="card-meta" style="margin-top:6px;">${med.instruction} · 疗程${med.durationDays}天</div>
+                  <div class="card-actions" onclick="event.stopPropagation();">
+                    <button class="btn btn-sm btn-success" onclick="markMedicationTaken('${med.id}')">✅ ${t('mark_taken')}</button>
+                    <button class="btn btn-sm btn-danger" onclick="markMedicationMissed('${med.id}')">⚠️ ${t('mark_missed')}</button>
+                  </div>
+                </div>`;
+                }).join('');
+            }
+            updateStats();
+        }
+
+        function markMedicationTaken(medId) {
+            const med = appData.medications.find(m => m.id === medId);
+            if (!med) return;
+            const today = getTodayStr();
+            if (!med.records[today]) med.records[today] = {};
+            const statuses = getMedicationStatus(med);
+            // 标记当前时段或第一个未服的时段
+            const currentSlot = getTimeSlots().find(s => statuses[s.key] === 'current');
+            const firstPending = getTimeSlots().find(s => statuses[s.key] === 'pending' || statuses[s.key] ===
+                'overdue');
+            const targetSlot = currentSlot || firstPending;
+            if (targetSlot && med.times.includes(targetSlot.key)) {
+                med.records[today][targetSlot.key] = true;
+                saveData();
+                renderMedications();
+                showToast(`✅ ${med.name} - ${targetSlot.label}已服药`);
+                // 振动反馈
+                if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+            } else if (med.times.every(t => statuses[t] === 'taken')) {
+                showToast('今日已全部服用，真棒！👍');
+            } else {
+                // 标记第一个未服的
+                for (const slot of getTimeSlots()) {
+                    if (med.times.includes(slot.key) && statuses[slot.key] !== 'taken' && statuses[slot.key] !== 'missed') {
+                        med.records[today][slot.key] = true;
+                        saveData();
+                        renderMedications();
+                        showToast(`✅ ${med.name} - ${slot.label}已服药`);
+                        if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+                        return;
+                    }
+                }
+                showToast('今日已全部服用完毕');
+            }
+        }
+
+        function markMedicationMissed(medId) {
+            const med = appData.medications.find(m => m.id === medId);
+            if (!med) return;
+            const today = getTodayStr();
+            if (!med.records[today]) med.records[today] = {};
+            const statuses = getMedicationStatus(med);
+            // 标记过期的时段为漏服
+            let marked = false;
+            for (const slot of getTimeSlots()) {
+                if (med.times.includes(slot.key) && (statuses[slot.key] === 'overdue' || statuses[slot.key] ===
+                        'current' || statuses[slot.key] === 'pending')) {
+                    if (statuses[slot.key] !== 'taken') {
+                        med.records[today][slot.key] = 'missed';
+                        marked = true;
+                    }
+                }
+            }
+            if (marked) {
+                saveData();
+                renderMedications();
+                showToast(`⚠️ ${med.name} 已标记漏服`);
+            } else {
+                showToast('没有需要标记的时段');
+            }
+        }
+
+        function updateStats() {
+            const today = getTodayStr();
+            let totalDue = 0;
+            let totalTaken = 0;
+            let totalMissed = 0;
+            for (const med of appData.medications) {
+                const statuses = getMedicationStatus(med);
+                for (const slot of getTimeSlots()) {
+                    if (med.times.includes(slot.key)) {
+                        totalDue++;
+                        if (statuses[slot.key] === 'taken') totalTaken++;
+                        if (statuses[slot.key] === 'missed') totalMissed++;
+                    }
+                }
+            }
+            document.getElementById('stat-taken').textContent = totalTaken;
+            document.getElementById('stat-missed').textContent = totalMissed;
+            document.getElementById('stat-total').textContent = totalDue;
+        }
+
+        function openAddMedication() {
+            const modal = document.getElementById('modal-container');
+            const timeSlots = getTimeSlots();
+            modal.innerHTML = `
+            <div class="modal-overlay" onclick="closeModal()">
+              <div class="modal-sheet" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3 data-i18n="add_medication">${t('add_medication')}</h3>
+                <div class="form-group">
+                  <label data-i18n="medication_name">${t('medication_name')}</label>
+                  <div class="input-with-voice">
+                    <input type="text" id="input-med-name" placeholder="${t('medication_name')}" style="flex:1;">
+                    <button class="voice-btn" id="voice-btn-name" onclick="startVoiceInputForField('input-med-name', 'voice-btn-name')" aria-label="${t('voice_input')}">🎤</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="dosage">${t('dosage')}</label>
+                  <input type="text" id="input-med-dosage" placeholder="如：1片、2粒" value="1片">
+                </div>
+                <div class="form-group">
+                  <label data-i18n="take_time">${t('take_time')}</label>
+                  <div class="time-chips" id="time-chips-add">
+                    ${timeSlots.map(s => `<span class="time-chip" data-time="${s.key}" onclick="toggleTimeChip(this)">${s.label}</span>`).join('')}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="instruction">${t('instruction')}</label>
+                  <select id="input-med-instruction">
+                    <option value="饭后" data-i18n="after_meal">${t('after_meal')}</option>
+                    <option value="饭前" data-i18n="before_meal">${t('before_meal')}</option>
+                    <option value="随餐" data-i18n="with_meal">${t('with_meal')}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="duration_days">${t('duration_days')}</label>
+                  <input type="number" id="input-med-duration" value="30" min="1" max="365" style="width:120px;"> <span style="font-size:var(--font-md);margin-left:8px;">${t('days_unit')}</span>
+                </div>
+                <div class="modal-actions">
+                  <button class="btn btn-ghost btn-full" onclick="closeModal()">${t('cancel')}</button>
+                  <button class="btn btn-primary btn-full" onclick="saveNewMedication()">${t('save')}</button>
+                </div>
+              </div>
+            </div>`;
+        }
+
+        function openEditMedication(medId) {
+            const med = appData.medications.find(m => m.id === medId);
+            if (!med) return;
+            const modal = document.getElementById('modal-container');
+            const timeSlots = getTimeSlots();
+            modal.innerHTML = `
+            <div class="modal-overlay" onclick="closeModal()">
+              <div class="modal-sheet" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3>编辑药品</h3>
+                <input type="hidden" id="edit-med-id" value="${med.id}">
+                <div class="form-group">
+                  <label data-i18n="medication_name">${t('medication_name')}</label>
+                  <div class="input-with-voice">
+                    <input type="text" id="input-med-name" value="${med.name}" style="flex:1;">
+                    <button class="voice-btn" id="voice-btn-name" onclick="startVoiceInputForField('input-med-name', 'voice-btn-name')" aria-label="${t('voice_input')}">🎤</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="dosage">${t('dosage')}</label>
+                  <input type="text" id="input-med-dosage" value="${med.dosage}">
+                </div>
+                <div class="form-group">
+                  <label data-i18n="take_time">${t('take_time')}</label>
+                  <div class="time-chips" id="time-chips-add">
+                    ${timeSlots.map(s => `<span class="time-chip ${med.times.includes(s.key)?'selected':''}" data-time="${s.key}" onclick="toggleTimeChip(this)">${s.label}</span>`).join('')}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="instruction">${t('instruction')}</label>
+                  <select id="input-med-instruction">
+                    <option value="饭后" ${med.instruction==='饭后'?'selected':''}>${t('after_meal')}</option>
+                    <option value="饭前" ${med.instruction==='饭前'?'selected':''}>${t('before_meal')}</option>
+                    <option value="随餐" ${med.instruction==='随餐'?'selected':''}>${t('with_meal')}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="duration_days">${t('duration_days')}</label>
+                  <input type="number" id="input-med-duration" value="${med.durationDays}" min="1" max="365" style="width:120px;"> <span style="font-size:var(--font-md);margin-left:8px;">${t('days_unit')}</span>
+                </div>
+                <div class="modal-actions">
+                  <button class="btn btn-danger btn-full" onclick="deleteMedication('${med.id}')">🗑 ${t('delete')}</button>
+                  <button class="btn btn-primary btn-full" onclick="updateMedication()">${t('save')}</button>
+                </div>
+              </div>
+            </div>`;
+        }
+
+        function toggleTimeChip(chip) {
+            chip.classList.toggle('selected');
+        }
+
+        function getSelectedTimes() {
+            const chips = document.querySelectorAll('#time-chips-add .time-chip.selected');
+            return Array.from(chips).map(c => c.getAttribute('data-time'));
+        }
+
+        function startVoiceInputForField(inputId, btnId) {
+            const inputEl = document.getElementById(inputId);
+            const btnEl = document.getElementById(btnId);
+            if (!inputEl) return;
+            startVoiceInput((transcript) => {
+                inputEl.value = transcript;
+                if (btnEl) btnEl.classList.remove('listening');
+                showToast('已识别: ' + transcript);
+            });
+        }
+
+        function saveNewMedication() {
+            const name = document.getElementById('input-med-name')?.value?.trim();
+            const dosage = document.getElementById('input-med-dosage')?.value?.trim();
+            const times = getSelectedTimes();
+            const instruction = document.getElementById('input-med-instruction')?.value;
+            const durationDays = parseInt(document.getElementById('input-med-duration')?.value) || 30;
+            if (!name) { showToast('请输入药品名称'); return; }
+            if (times.length === 0) { showToast('请选择服用时间'); return; }
+            const newMed = {
+                id: 'med_' + Date.now(),
+                name,
+                nameZa: name,
+                dosage: dosage || '1片',
+                times,
+                instruction: instruction || '饭后',
+                durationDays,
+                startDate: getTodayStr(),
+                records: {}
+            };
+            appData.medications.unshift(newMed);
+            saveData();
+            closeModal();
+            renderMedications();
+            updateStats();
+            // 语音确认
+            const timesStr = times.map(t => {
+                const slot = getTimeSlots().find(s => s.key === t);
+                return slot ? slot.label : t;
+            }).join('、');
+            speakI18n('voice_confirm_add', {
+                name: name,
+                times: timesStr,
+                dosage: dosage || '1片',
+                instruction: instruction || '饭后'
+            }, 0);
+            showToast(t('toast_saved'));
+            // 请求通知权限
+            requestNotificationPermission();
+        }
+
+        function updateMedication() {
+            const medId = document.getElementById('edit-med-id')?.value;
+            const med = appData.medications.find(m => m.id === medId);
+            if (!med) return;
+            const name = document.getElementById('input-med-name')?.value?.trim();
+            const dosage = document.getElementById('input-med-dosage')?.value?.trim();
+            const times = getSelectedTimes();
+            const instruction = document.getElementById('input-med-instruction')?.value;
+            const durationDays = parseInt(document.getElementById('input-med-duration')?.value) || 30;
+            if (!name) { showToast('请输入药品名称'); return; }
+            if (times.length === 0) { showToast('请选择服用时间'); return; }
+            med.name = name;
+            med.dosage = dosage || '1片';
+            med.times = times;
+            med.instruction = instruction || '饭后';
+            med.durationDays = durationDays;
+            saveData();
+            closeModal();
+            renderMedications();
+            updateStats();
+            showToast(t('toast_saved'));
+        }
+
+        function deleteMedication(medId) {
+            if (!confirm('确定要删除这个药品吗？')) return;
+            appData.medications = appData.medications.filter(m => m.id !== medId);
+            saveData();
+            closeModal();
+            renderMedications();
+            updateStats();
+            showToast(t('toast_deleted'));
+        }
+
+        // ==================== 就诊记录 ====================
+        function renderVisits(filterType = 'all') {
+            const list = document.getElementById('visit-list');
+            const empty = document.getElementById('visit-empty');
+            let visits = [...appData.visits];
+            // 筛选
+            const now = new Date();
+            if (filterType === '1month') {
+                const oneMonthAgo = new Date(now);
+                oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+                visits = visits.filter(v => new Date(v.date) >= oneMonthAgo);
+            } else if (filterType === '3months') {
+                const threeMonthsAgo = new Date(now);
+                threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+                visits = visits.filter(v => new Date(v.date) >= threeMonthsAgo);
+            }
+            // 按日期倒序
+            visits.sort((a, b) => new Date(b.date) - new Date(a.date));
+            if (visits.length === 0) {
+                list.innerHTML = '';
+                empty.style.display = 'block';
+            } else {
+                empty.style.display = 'none';
+                list.innerHTML = visits.map(v => {
+                    const followUpHtml = v.followUpDate ?
+                        `<span class="follow-up-badge">${t('follow_up_badge')}${v.followUpDate}</span>` :
+                        '';
+                    const photoHtml = v.photos && v.photos.length > 0 ?
+                        `<div style="margin-top:8px;font-size:var(--font-sm);color:var(--accent);">📷 已上传${v.photos.length}张照片</div>` :
+                        '';
+                    return `
+                <div class="card visit-card" onclick="viewVisitDetail('${v.id}')">
+                  <div class="card-header">
+                    <span class="card-title">${v.hospital}</span>
+                    <span style="font-size:var(--font-sm);color:var(--text-light);white-space:nowrap;">${v.date}</span>
+                  </div>
+                  <div class="card-subtitle">${v.department} · ${v.doctor}</div>
+                  <div class="card-meta">诊断：${v.diagnosis}</div>
+                  ${followUpHtml}
+                  ${photoHtml}
+                </div>`;
+                }).join('');
+            }
+            // 更新筛选按钮状态
+            document.querySelectorAll('#visit-filter .filter-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.getAttribute('data-filter') === filterType);
+            });
+        }
+
+        function openAddVisit() {
+            const modal = document.getElementById('modal-container');
+            modal.innerHTML = `
+            <div class="modal-overlay" onclick="closeModal()">
+              <div class="modal-sheet" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3 data-i18n="add_visit">${t('add_visit')}</h3>
+                <div class="form-group">
+                  <label data-i18n="visit_date">${t('visit_date')}</label>
+                  <input type="date" id="input-visit-date" value="${getTodayStr()}">
+                </div>
+                <div class="form-group">
+                  <label data-i18n="hospital">${t('hospital')}</label>
+                  <input type="text" id="input-visit-hospital" placeholder="${t('hospital')}">
+                </div>
+                <div class="form-group">
+                  <label data-i18n="department">${t('department')}</label>
+                  <input type="text" id="input-visit-department" placeholder="${t('department')}">
+                </div>
+                <div class="form-group">
+                  <label data-i18n="doctor_name">${t('doctor_name')}</label>
+                  <input type="text" id="input-visit-doctor" placeholder="${t('doctor_name')}">
+                </div>
+                <div class="form-group">
+                  <label data-i18n="diagnosis">${t('diagnosis')}</label>
+                  <textarea id="input-visit-diagnosis" placeholder="${t('diagnosis')}"></textarea>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="prescription_meds">${t('prescription_meds')}</label>
+                  <textarea id="input-visit-prescription" placeholder="${t('prescription_meds')}"></textarea>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="follow_up_date">${t('follow_up_date')}</label>
+                  <input type="date" id="input-visit-followup">
+                </div>
+                <div class="form-group">
+                  <label data-i18n="take_photo">${t('take_photo')}</label>
+                  <input type="file" id="input-visit-photos" accept="image/*" multiple capture="environment" style="font-size:var(--font-md);padding:10px;">
+                  <div id="photo-preview" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;"></div>
+                </div>
+                <div class="modal-actions">
+                  <button class="btn btn-ghost btn-full" onclick="closeModal()">${t('cancel')}</button>
+                  <button class="btn btn-primary btn-full" onclick="saveNewVisit()">${t('save')}</button>
+                </div>
+              </div>
+            </div>`;
+            // 照片预览
+            const photoInput = document.getElementById('input-visit-photos');
+            if (photoInput) {
+                photoInput.addEventListener('change', (e) => {
+                    const preview = document.getElementById('photo-preview');
+                    preview.innerHTML = '';
+                    for (const file of e.target.files) {
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            const img = document.createElement('img');
+                            img.src = ev.target.result;
+                            img.style.cssText =
+                                'width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid var(--border);';
+                            preview.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        }
+
+        function saveNewVisit() {
+            const date = document.getElementById('input-visit-date')?.value;
+            const hospital = document.getElementById('input-visit-hospital')?.value?.trim();
+            const department = document.getElementById('input-visit-department')?.value?.trim();
+            const doctor = document.getElementById('input-visit-doctor')?.value?.trim();
+            const diagnosis = document.getElementById('input-visit-diagnosis')?.value?.trim();
+            const prescription = document.getElementById('input-visit-prescription')?.value?.trim();
+            const followUpDate = document.getElementById('input-visit-followup')?.value;
+            if (!hospital) { showToast('请输入医院名称'); return; }
+            if (!date) { showToast('请选择就诊日期'); return; }
+            // 处理照片
+            const photoInput = document.getElementById('input-visit-photos');
+            const photos = [];
+            if (photoInput && photoInput.files.length > 0) {
+                // 使用Promise处理异步读取
+                const promises = [];
+                for (const file of photoInput.files) {
+                    promises.push(new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.onerror = () => resolve(null);
+                        reader.readAsDataURL(file);
+                    }));
+                }
+                Promise.all(promises).then(results => {
+                    const validPhotos = results.filter(r => r !== null);
+                    const newVisit = {
+                        id: 'vis_' + Date.now(),
+                        date,
+                        hospital,
+                        department: department || '',
+                        doctor: doctor || '',
+                        diagnosis: diagnosis || '',
+                        prescription: prescription || '',
+                        followUpDate: followUpDate || '',
+                        photos: validPhotos.slice(0, 5) // 最多5张
+                    };
+                    appData.visits.unshift(newVisit);
+                    saveData();
+                    closeModal();
+                    renderVisits(getCurrentFilter());
+                    showToast(t('toast_saved'));
+                    if (followUpDate) checkFollowUpReminder(followUpDate);
+                });
+            } else {
+                const newVisit = {
+                    id: 'vis_' + Date.now(),
+                    date,
+                    hospital,
+                    department: department || '',
+                    doctor: doctor || '',
+                    diagnosis: diagnosis || '',
+                    prescription: prescription || '',
+                    followUpDate: followUpDate || '',
+                    photos: []
+                };
+                appData.visits.unshift(newVisit);
+                saveData();
+                closeModal();
+                renderVisits(getCurrentFilter());
+                showToast(t('toast_saved'));
+                if (followUpDate) checkFollowUpReminder(followUpDate);
+            }
+        }
+
+        function viewVisitDetail(visitId) {
+            const visit = appData.visits.find(v => v.id === visitId);
+            if (!visit) return;
+            const modal = document.getElementById('modal-container');
+            const photosHtml = visit.photos && visit.photos.length > 0 ?
+                visit.photos.map(p =>
+                    `<img src="${p}" style="width:100%;max-width:300px;border-radius:8px;margin:4px;cursor:pointer;" onclick="window.open('${p}')" alt="病历照片">`
+                    ).join('') :
+                '<p style="color:var(--text-light);">无照片</p>';
+            modal.innerHTML = `
+            <div class="modal-overlay" onclick="closeModal()">
+              <div class="modal-sheet" onclick="event.stopPropagation()" style="max-height:90vh;">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3>就诊详情</h3>
+                <div class="card" style="margin-bottom:12px;">
+                  <div class="card-header"><span class="card-title">${visit.hospital}</span><span>${visit.date}</span></div>
+                  <div class="card-subtitle">${visit.department} · ${visit.doctor}</div>
+                  <div class="card-meta"><strong>诊断：</strong>${visit.diagnosis}</div>
+                  <div class="card-meta"><strong>处方：</strong>${visit.prescription}</div>
+                  ${visit.followUpDate ? `<div class="follow-up-badge">${t('follow_up_badge')}${visit.followUpDate}</div>` : ''}
+                </div>
+                <div style="margin-top:12px;"><strong>📷 病历照片：</strong></div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">${photosHtml}</div>
+                <div class="modal-actions" style="margin-top:16px;">
+                  <button class="btn btn-danger btn-full" onclick="deleteVisit('${visit.id}')">🗑 ${t('delete')}</button>
+                  <button class="btn btn-ghost btn-full" onclick="closeModal()">${t('cancel')}</button>
+                </div>
+              </div>
+            </div>`;
+        }
+
+        function deleteVisit(visitId) {
+            if (!confirm('确定要删除这条就诊记录吗？')) return;
+            appData.visits = appData.visits.filter(v => v.id !== visitId);
+            saveData();
+            closeModal();
+            renderVisits(getCurrentFilter());
+            showToast(t('toast_deleted'));
+        }
+
+        function getCurrentFilter() {
+            const activeChip = document.querySelector('#visit-filter .filter-chip.active');
+            return activeChip ? activeChip.getAttribute('data-filter') : 'all';
+        }
+
+        function checkFollowUpReminder(followUpDate) {
+            const target = new Date(followUpDate);
+            const now = new Date();
+            const diffDays = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+            if (diffDays <= 3 && diffDays >= 0) {
+                setTimeout(() => {
+                    speakI18n('voice_followup', {}, 1);
+                }, 500);
+            }
+        }
+
+        // ==================== 个人中心 ====================
+        function updateProfileDisplay() {
+            document.getElementById('profile-name').textContent = appData.user.name;
+            document.getElementById('profile-info').textContent =
+                `${appData.user.age}岁 · 📞 ${appData.user.phone}`;
+            document.getElementById('avatar-display').textContent = appData.user.avatar || '👵';
+            document.getElementById('volume-slider').value = appData.user.volume || 80;
+            document.getElementById('speed-slider').value = appData.user.speed || 65;
+            updateVolumeLabel();
+            updateSpeedLabel();
+            document.getElementById('btn-lang-switch').textContent =
+                appData.user.language === 'za' ? '壮语' : '中文';
+        }
+
+        function updateVolume(val) {
+            appData.user.volume = parseInt(val);
+            saveData();
+            updateVolumeLabel();
+        }
+
+        function updateVolumeLabel() {
+            const val = appData.user.volume || 80;
+            document.getElementById('vol-label').textContent = val + '%';
+            document.getElementById('volume-slider').value = val;
+        }
+
+        function updateSpeed(val) {
+            appData.user.speed = parseInt(val);
+            saveData();
+            updateSpeedLabel();
+        }
+
+        function updateSpeedLabel() {
+            const val = appData.user.speed || 65;
+            let label;
+            if (val < 50) label = '慢速';
+            else if (val < 75) label = '中速';
+            else label = '较快';
+            document.getElementById('speed-label').textContent = label;
+            document.getElementById('speed-slider').value = val;
+        }
+
+        function toggleLanguage() {
+            appData.user.language = appData.user.language === 'za' ? 'zh' : 'za';
+            saveData();
+            updateAllI18n();
+            showToast(appData.user.language === 'za' ? '已切换为壮语' : '已切换为中文');
+            // 更新语音识别语言
+            if (recognition) {
+                recognition.lang = appData.user.language === 'za' ? 'zh-CN' : 'zh-CN';
+            }
+        }
+
+        function openEditProfile() {
+            const modal = document.getElementById('modal-container');
+            modal.innerHTML = `
+            <div class="modal-overlay" onclick="closeModal()">
+              <div class="modal-sheet" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3 data-i18n="edit_profile">${t('edit_profile')}</h3>
+                <div class="form-group">
+                  <label>姓名</label>
+                  <input type="text" id="edit-user-name" value="${appData.user.name}">
+                </div>
+                <div class="form-group">
+                  <label>年龄</label>
+                  <input type="number" id="edit-user-age" value="${appData.user.age}" min="18" max="120">
+                </div>
+                <div class="form-group">
+                  <label>联系电话</label>
+                  <input type="tel" id="edit-user-phone" value="${appData.user.phone}">
+                </div>
+                <div class="form-group">
+                  <label>紧急联系人电话</label>
+                  <input type="tel" id="edit-user-emergency" value="${appData.user.emergencyContact}">
+                </div>
+                <div class="form-group">
+                  <label>头像选择</label>
+                  <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:36px;" id="avatar-options">
+                    ${['👵','👴','🧓','👩‍🦳','👨‍🦳','👩','👨','😊'].map(a => `<span style="cursor:pointer;padding:8px;border-radius:12px;border:2px solid ${appData.user.avatar===a?'var(--accent)':'transparent'};" onclick="selectAvatar('${a}')">${a}</span>`).join('')}
+                  </div>
+                </div>
+                <div class="modal-actions">
+                  <button class="btn btn-ghost btn-full" onclick="closeModal()">${t('cancel')}</button>
+                  <button class="btn btn-primary btn-full" onclick="saveProfile()">${t('save')}</button>
+                </div>
+              </div>
+            </div>`;
+        }
+
+        function selectAvatar(avatar) {
+            document.querySelectorAll('#avatar-options span').forEach(s => {
+                s.style.borderColor = s.textContent === avatar ? 'var(--accent)' : 'transparent';
+            });
+            appData.user.avatar = avatar;
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('edit-user-name')?.value?.trim();
+            const age = document.getElementById('edit-user-age')?.value;
+            const phone = document.getElementById('edit-user-phone')?.value?.trim();
+            const emergency = document.getElementById('edit-user-emergency')?.value?.trim();
+            if (name) appData.user.name = name;
+            if (age) appData.user.age = parseInt(age);
+            if (phone) appData.user.phone = phone;
+            if (emergency) appData.user.emergencyContact = emergency;
+            saveData();
+            closeModal();
+            updateProfileDisplay();
+            showToast(t('toast_saved'));
+        }
+
+        function callEmergency() {
+            if (confirm(t('call_confirm'))) {
+                const phone = appData.user.emergencyContact || appData.user.phone;
+                const cleanPhone = phone.replace(/[^\d+]/g, '');
+                if (cleanPhone) {
+                    window.location.href = 'tel:' + cleanPhone;
+                } else {
+                    showToast('未设置紧急联系电话');
+                }
+            }
+        }
+
+        function showHelp() {
+            const modal = document.getElementById('modal-container');
+            modal.innerHTML = `
+            <div class="modal-overlay" onclick="closeModal()">
+              <div class="modal-sheet" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+                <h3 data-i18n="help_feedback">${t('help_feedback')}</h3>
+                <div style="font-size:var(--font-md);line-height:2;white-space:pre-line;padding:12px 0;">${t('help_text')}</div>
+                <button class="btn btn-primary btn-full" onclick="speak(t('help_text'));showToast('正在朗读帮助内容')">🔊 朗读帮助</button>
+                <button class="btn btn-ghost btn-full" onclick="closeModal()" style="margin-top:8px;">${t('cancel')}</button>
+              </div>
+            </div>`;
+        }
+
+        function closeModal() {
+            document.getElementById('modal-container').innerHTML = '';
+        }
+
+        // ==================== 定时提醒检查 ====================
+        let lastReminderCheck = {};
+        let reminderInterval = null;
+
+        function checkReminders() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const today = getTodayStr();
+            for (const med of appData.medications) {
+                const statuses = getMedicationStatus(med);
+                const timeSlots = getTimeSlots();
+                for (const slot of timeSlots) {
+                    if (!med.times.includes(slot.key)) continue;
+                    if (statuses[slot.key] === 'taken' || statuses[slot.key] === 'missed') continue;
+                    // 检查是否到了提醒时间（±1分钟内）
+                    if (currentHour === slot.defaultHour && currentMinute >= 0 && currentMinute <= 2) {
+                        const reminderKey = `${med.id}_${slot.key}_${today}`;
+                        if (!lastReminderCheck[reminderKey]) {
+                            lastReminderCheck[reminderKey] = true;
+                            // 触发提醒
+                            triggerReminder(med, slot);
+                        }
+                    }
+                }
+            }
+            // 清理旧键（不同日期）
+            const todayPrefix = today;
+            for (const key in lastReminderCheck) {
+                if (!key.includes(todayPrefix)) {
+                    delete lastReminderCheck[key];
+                }
+            }
+        }
+
+        function triggerReminder(med, slot) {
+            const timeSlots = getTimeSlots();
+            const slotInfo = timeSlots.find(s => s.key === slot.key);
+            const slotLabel = slotInfo ? slotInfo.label : slot.key;
+            // 语音播报2次
+            speakI18n('voice_reminder', {
+                name: med.name,
+                dosage: med.dosage,
+                instruction: med.instruction
+            }, 1);
+            // 系统通知
+            sendNotification(
+                '💊 用药提醒',
+                `${med.name} - ${slotLabel}\n${med.dosage}，${med.instruction}`
+            );
+            showToast(`🔔 ${med.name} 服药时间到！${slotLabel}`);
+        }
+
+        function sendNotification(title, body) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                try {
+                    new Notification(title, {
+                        body,
+                        icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💊</text></svg>',
+                        vibrate: [200, 100, 200],
+                        tag: 'medication-reminder',
+                        requireInteraction: true,
+                    });
+                } catch (e) {
+                    console.warn('通知发送失败', e);
+                }
+            }
+        }
+
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission().then(perm => {
+                    if (perm === 'granted') {
+                        showToast('✅ 通知权限已开启，将准时提醒您服药');
+                    }
+                });
+            }
+        }
+
+        // ==================== 初始化 ====================
+        function initApp() {
+            updateAllI18n();
+            renderMedications();
+            renderVisits('all');
+            updateStats();
+            updateProfileDisplay();
+            // 请求通知权限
+            requestNotificationPermission();
+            // 启动定时检查（每30秒）
+            if (reminderInterval) clearInterval(reminderInterval);
+            reminderInterval = setInterval(checkReminders, 30000);
+            // 首次检查
+            setTimeout(checkReminders, 2000);
+            // 检查复诊提醒
+            for (const visit of appData.visits) {
+                if (visit.followUpDate) {
+                    checkFollowUpReminder(visit.followUpDate);
+                }
+            }
+            console.log('✅ 老年健康助手已就绪');
+            console.log('  语言:', appData.user.language === 'za' ? '壮语' : '中文');
+            console.log('  药品数量:', appData.medications.length);
+            console.log('  就诊记录:', appData.visits.length);
+            console.log('  可添加到手机主屏幕使用');
+        }
+
+        // 筛选按钮事件
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('#visit-filter .filter-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const filterType = this.getAttribute('data-filter');
+                    renderVisits(filterType);
+                });
+            });
+            // 关闭模态框的点击事件（点击遮罩）
+            document.getElementById('modal-container').addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal-overlay')) {
+                    closeModal();
+                }
+            });
+        });
+
+        // ==================== PWA Service Worker 注册 ====================
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+            const CACHE_NAME = 'elderly-health-v2';
+            const ASSETS = [
+              '/',
+              'index.html',
+            ];
+            self.addEventListener('install', (event) => {
+              event.waitUntil(
+                caches.open(CACHE_NAME).then((cache) => {
+                  return cache.addAll(ASSETS).catch(() => {});
+                })
+              );
+              self.skipWaiting();
+            });
+            self.addEventListener('activate', (event) => {
+              event.waitUntil(
+                caches.keys().then((keys) => {
+                  return Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)));
+                })
+              );
+              self.clients.claim();
+            });
+            self.addEventListener('fetch', (event) => {
+              if (event.request.method !== 'GET') return;
+              event.respondWith(
+                caches.match(event.request).then((cached) => {
+                  const fetchPromise = fetch(event.request).then((response) => {
+                    if (response && response.status === 200) {
+                      const clone = response.clone();
+                      caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, clone);
+                      });
+                    }
+                    return response;
+                  }).catch(() => cached);
+                  return cached || fetchPromise;
+                })
+              );
+            });
+            self.addEventListener('notificationclick', (event) => {
+              event.notification.close();
+              event.waitUntil(
+                clients.matchAll({type: 'window'}).then((clientsArr) => {
+                  if (clientsArr.length > 0) {
+                    clientsArr[0].focus();
+                  } else {
+                    clients.openWindow('/');
+                  }
+                })
+              );
+            });
+          `;
+            const swBlob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(swBlob);
+            navigator.serviceWorker.register(swUrl, { scope: '/' })
+                .then(reg => console.log('✅ Service Worker 已注册'))
+                .catch(err => console.warn('Service Worker 注册失败（可能需HTTPS）:', err.message));
+        }
+
+        // ==================== 启动应用 ====================
+        document.addEventListener('DOMContentLoaded', initApp);
+
+        // 页面可见性变化时重新检查提醒
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                updateStats();
+                renderMedications();
+                checkReminders();
+            }
+        });
+
+        // 处理来自通知的点击
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                if (event.data && event.data.action === 'focus') {
+                    switchPage('page-medication');
+                }
+            });
+        }
+
+        console.log('💊 老年健康助手 PWA 已加载');
+        console.log('📱 在手机浏览器中打开，选择"添加到主屏幕"即可安装');
+        console.log('🌐 支持壮语/中文双语 · 语音播报 · 语音录入');
+    </script>
+</body>
+</html>
